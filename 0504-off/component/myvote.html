@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h3>좋아하는 음식을 고르세요</h3>
+      <div>{{count}}</div>
+      <child-componenet title="pizza" v-on:add-count="addTotalCount"></child-componenet>
+      <child-componenet title="pasta" v-on:add-count="addTotalCount"></child-componenet>
+    </div>
+    <template id="foodBtn">
+      <div><button v-on:click="addCount">{{title}}</button>{{count}}</div>
+    </template>
+
+    <script>
+      Vue.component("child-componenet", {
+        props: ["title"],
+        template: "#foodBtn",
+        data() {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          addCount: function () {
+            this.count++;
+            this.$emit("add-count");
+          },
+        },
+      });
+
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          addTotalCount: function () {
+            this.count++;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

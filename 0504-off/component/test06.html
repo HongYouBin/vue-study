@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>props test</h2>                                           
+      <child-component propsdata="안녕하세요"></child-component>
+      <!-- 동적 props -->
+      <child-component v-bind:propsdata="message"></child-component>
+      <div>
+        <ssafy-area name="대전" cnt="4"></ssafy-area>
+        <ssafy-area name="부울경" cnt="2"></ssafy-area>
+        <ssafy-area name="서울" cnt="12"></ssafy-area>
+      </div>
+    </div>
+
+    <script>
+      //하위 컴포넌트
+      Vue.component("childComponent", {
+        props: ["propsdata"],
+        template: "<span>{{ propsdata }}</span>",
+      });
+
+      Vue.component("ssafy-area", {
+        props: ["name", "cnt"],
+        template: `<div>지역명 : {{name}}, {{cnt}}</div>`,
+      });
+
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            message: "hello ssafy",
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
